@@ -17,7 +17,7 @@ payload = {
 }
 
 jwt_token = jwt.encode(payload, secret_key)
-authorize_token = 'Bearer {}'.format(jwt_token)
+authorize_token = 'Bearer {}'.format(jwt_token) 
 headers = {"Authorization": authorize_token}
 
 res = requests.get(server_url + "/v1/accounts", headers=headers)
