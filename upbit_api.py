@@ -13,7 +13,7 @@ server_url = os.environ['UPBIT_SERVER_URL']
 
 payload = {
     'access_key': access_key,
-    'nonce': str(uuid.uuid4()),
+    'nonce': str(uuid.uuid4()), 
 }
 
 jwt_token = jwt.encode(payload, secret_key)
