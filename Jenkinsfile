@@ -22,7 +22,6 @@ pipeline {
             }
         }
     }
-
     post {
         success {
             echo 'Deployment is successful!'
