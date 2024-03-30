@@ -8,7 +8,7 @@ import requests
 
 # git Test git merge
 # 환경 변수에서 Access Key와 Secret Key를 가져온다.
-# Open-WebUi
+# Open-WebUi / model gemma 4.8GB
 access_key = os.environ['UPBIT_OPEN_API_ACCESS_KEY']
 secret_key = os.environ['UPBIT_OPEN_API_SECRET_KEY']
 server_url = os.environ['UPBIT_SERVER_URL']
