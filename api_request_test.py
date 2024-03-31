@@ -1,5 +1,6 @@
 import requests
 
+# venv 가상환경 구성 
 def get_upbit_prices(market_codes):
     markets = ",".join(market_codes)  # 마켓 코드를 콤마로 구분된 문자열로 변환
     url = f"https://api.upbit.com/v1/ticker?markets={markets}"
