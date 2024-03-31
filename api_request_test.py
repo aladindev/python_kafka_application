@@ -1,4 +1,4 @@
-import requests, schedule
+import requests, schedule, time
 
 
 # venv 가상환경 구성 
