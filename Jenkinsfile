@@ -3,6 +3,14 @@
 // This Pipeline has run successfully, but does not define any stages. Please use the stage step to define some stages in this Pipeline.
 // git clone -> .py -> Pulbish Over SSH
 // sourceFiles: '**/*.py'
+//  stage('List Files') {
+//     steps {
+//         script {
+//             sh 'ls -la' // Unix/Linux 환경의 경우
+//             // bat 'dir' // Windows 환경의 경우
+//         }
+//     }
+// }
 pipeline {
     agent any
 
