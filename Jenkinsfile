@@ -1,6 +1,7 @@
 // python JenkinsFile
 // Pipeline: Declarative 파이프라인 설치 해결
 // This Pipeline has run successfully, but does not define any stages. Please use the stage step to define some stages in this Pipeline.
+// git clone -> .py -> Pulbish Over SSH
 pipeline {
     agent any
 
