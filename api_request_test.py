@@ -1,4 +1,5 @@
-import requests
+import requests, schedule
+
 
 # venv 가상환경 구성 
 def get_upbit_prices(market_codes):
