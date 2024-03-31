@@ -10,7 +10,7 @@
 //             // bat 'dir' // Windows 환경의 경우
 //         }
 //     }
-// }
+// } 
 pipeline {
     agent any
 
