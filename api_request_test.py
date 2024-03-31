@@ -1,25 +1,15 @@
 import requests
 
-def get_upbit_price(market):
-    """
-    Upbit에서 특정 마켓의 현재 가격을 조회합니다.
-    
-    :param market: 조회할 마켓의 코드 (예: KRW-BTC)
-    :return: 현재 가격 정보
-    """
-    url = f"https://api.upbit.com/v1/ticker?markets={market}"
+def get_upbit_prices(market_codes):
+    markets = ",".join(market_codes)  # 마켓 코드를 콤마로 구분된 문자열로 변환
+    url = f"https://api.upbit.com/v1/ticker?markets={markets}"
     response = requests.get(url)
-    
     if response.status_code == 200:
-        result = response.json()
-        if result:
-            return result[0]['trade_price']
-        else:
-            return "결과가 없습니다."
-    else:
-        return "API 요청에 실패했습니다."
+        results = response.json()
+        return {result['market']: result['trade_price'] for result in results}
+    return "API 요청에 실패했습니다."
 
-# 예제 사용 방법
-market_code = "KRW-BTC"  # KRW-BTC 마켓 코드
-price = get_upbit_price(market_code)
-print(f"{market_code}의 현재 가격: {price} KRW")
+market_codes = ["KRW-BTC", "KRW-ETH", "KRW-XRP"]  # 조회할 마켓 코드 배열
+prices = get_upbit_prices(market_codes)
+for market_code in market_codes:
+    print(f"{market_code}의 현재 가격: {prices.get(market_code, '정보 없음')} KRW")
