@@ -1,4 +1,5 @@
 // python JenkinsFile
+// This Pipeline has run successfully, but does not define any stages. Please use the stage step to define some stages in this Pipeline.
 pipeline {
     agent any
 
