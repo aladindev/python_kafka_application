@@ -3,7 +3,7 @@ log.info(f"form_data.model_dump_json(exclude_none=True) > {form_data.model_dump_
 
 log.info(f"form_data> > > {form_data}")
 # form_data 객체에서 딕셔너리 데이터를 가져옴
-form_dict = form_data.to_dict()
+form_dict = form_data.dict()
 
 user_messages = [msg for msg in form_dict['messages'] if msg['role'] == 'user']
 if user_messages:  # user_messages 리스트가 비어있지 않은 경우에만 실행
