@@ -14,6 +14,15 @@ else:
 
 
 from langchain.vectorstores import Chroma
+from langchain.embeddings import HuggingFaceEmbeddings
+model_name = "jhgan/ko-sroberta-multitask" # (KorNLU 데이터셋에 학습시킨 한국어 임베딩 모델)
+model_kwargs = {'device': 'cpu'}
+encode_kwargs = {'normalize_embeddings': False}
+embedding_model = HuggingFaceEmbeddings(
+    model_name=model_name,
+    model_kwargs=model_kwargs,
+    encode_kwargs=encode_kwargs
+)
 db3 = Chroma(persist_directory="./chroma_db", embedding_function=form_data.model)
 docs = db3.similarity_search(last_user_content)
 log.info(f"docs >>>  {docs}")
