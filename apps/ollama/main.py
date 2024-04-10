@@ -21,6 +21,15 @@ app.state.sentence_transformer_ef = (
     )
 )
 
+#0410
+vectordb = Chroma(persist_directory='../../data/vector_db', embedding_function=app.state.sentence_transformer_ef)
+retriever = vectordb.as_retriever()
+
+docs = retriever.get_relevant_documents("ask Text")
+
+for doc in docs:
+    log.info(doc.metadata["source"])
+
 
 # loader = TextLoader('single_text_file.txt')
 loader = DirectoryLoader('./articles', glob="*.txt", loader_cls=TextLoader)
