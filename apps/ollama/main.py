@@ -3,8 +3,16 @@ from langchain.chains import RetrievalQA
 from langchain.vectorstores import Chroma
 
 
+# loader = TextLoader('single_text_file.txt')
+loader = DirectoryLoader('./articles', glob="*.txt", loader_cls=TextLoader)
+documents = loader.load()
+
+len(documents)
 
 
+
+vectordb = chroma(persist_directory=persist_directory, embedding_function=embedding)
+retriever = vectordb.as_retriever()
 
 
 
