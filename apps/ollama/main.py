@@ -10,7 +10,14 @@ from config import SRC_LOG_LEVELS, OLLAMA_BASE_URLS, MODEL_FILTER_ENABLED, MODEL
 #0410
 from chromadb.utils import embedding_functions
 
-
+#0410
+app.state.RAG_EMBEDDING_MODEL = RAG_EMBEDDING_MODEL
+app.state.sentence_transformer_ef = (
+    embedding_functions.SentenceTransformerEmbeddingFunction(
+        model_name=app.state.RAG_EMBEDDING_MODEL,
+        device=RAG_EMBEDDING_MODEL_DEVICE_TYPE,
+    )
+)
 
 
 # loader = TextLoader('single_text_file.txt')
