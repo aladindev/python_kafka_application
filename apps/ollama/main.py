@@ -9,6 +9,8 @@ from langchain.vectorstores import Chroma
 from config import SRC_LOG_LEVELS, OLLAMA_BASE_URLS, MODEL_FILTER_ENABLED, MODEL_FILTER_LIST, UPLOAD_DIR, RAG_EMBEDDING_MODEL_DEVICE_TYPE, RAG_EMBEDDING_MODEL
 #0410
 from chromadb.utils import embedding_functions
+#0410
+from langchain.vectorstores import Chroma
 
 #0410
 app.state.RAG_EMBEDDING_MODEL = RAG_EMBEDDING_MODEL
