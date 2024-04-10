@@ -15,6 +15,11 @@ vectordb = chroma(persist_directory=persist_directory, embedding_function=embedd
 retriever = vectordb.as_retriever()
 
 
+docs = retriever.get_relevant_documents("ask Text")
+
+for doc in docs:
+     print(doc.metadata["source"])
+
 
 
 
