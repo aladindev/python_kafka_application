@@ -1,4 +1,21 @@
 
+from langchain.chains import RetrievalQA
+from langchain.vectorstores import Chroma
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # 
 #
 
