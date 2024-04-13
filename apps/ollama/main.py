@@ -56,16 +56,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-#0410
-app.state.RAG_EMBEDDING_MODEL = RAG_EMBEDDING_MODEL
-app.state.sentence_transformer_ef = (
-    embedding_functions.SentenceTransformerEmbeddingFunction(
-        model_name=app.state.RAG_EMBEDDING_MODEL,
-        device=RAG_EMBEDDING_MODEL_DEVICE_TYPE,
-    )
-)
-
-
 app.state.MODEL_FILTER_ENABLED = MODEL_FILTER_ENABLED
 app.state.MODEL_FILTER_LIST = MODEL_FILTER_LIST
 
