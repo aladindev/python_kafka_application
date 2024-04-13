@@ -12,6 +12,10 @@ from chromadb.utils import embedding_functions
 #0410
 from langchain.vectorstores import Chroma
 
+#0413
+#0413
+# CHROMA_CLIENT
+# config.py에 선언된 전역 변수
 
 
 #통합
