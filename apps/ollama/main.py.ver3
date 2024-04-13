@@ -874,7 +874,7 @@ async def generate_chat_completion(
             log.info("\n\n\n\n###################################################")
             log.info(f"\nmin_distance : {min_distance}")
             log.info("###################################################\n\n")
-            if min_distance < 1.5 :
+            if min_distance < 0.9 :
                 log.info("######################## MIN DISTANCE ############################# \n\n\n\n\n")
                 collection_instance = chromadb.get_collection(min_collection_name)
                 result = collection_instance.query(
