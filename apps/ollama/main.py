@@ -118,6 +118,10 @@ async def generate_chat_completion(
             log.info(f"Results for collection {collection_name}: {result}")
             log.info("######################## MIN DISTANCE ############################# \n\n\n\n\n")
 
+            extracted_documents = result['documents'][0][0]
+
+            new_chat_message = ChatMessage(role='assistant', content=extracted_documents, images=None)
+            log.info(extracted_documents)
             # DB 쿼리
             #retriever = chromadb.as_retriever()
             #result = retriever.invoke("일산")
@@ -128,15 +132,20 @@ async def generate_chat_completion(
             # docs = vectordb.similarity_search_by_vector(embedding_vector)
             #log.info(f"docs >>>>>>> {docs}")
 
-            log.info(form_data.model_dump_json(exclude_none=True).encode());
-            # r = requests.request(
-            #     method="POST",
-            #     url=f"{url}/api/chat",
-            #     data=form_data.model_dump_json(exclude_none=True).encode(),
-            #     stream=True,
-            # )
+            log.info("################ form_data ASIS ####################\n\n\n\n\n")
+            log.info(form_data.messages)
+            form_data.messages.append(new_chat_message)
+            log.info("################ form_data TOBE ####################\n\n\n\n\n")
+            log.info(form_data.messages)
+            
+            r = requests.request(
+                method="POST",
+                url=f"{url}/api/chat",
+                data=form_data.model_dump_json(exclude_none=True).encode(),
+                stream=True,
+            )
 
-            #r.raise_for_status()
+            r.raise_for_status()
 
             return StreamingResponse(
                 stream_content(),
