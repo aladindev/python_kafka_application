@@ -831,9 +831,8 @@ async def generate_chat_completion(
                         if request_id in REQUEST_POOL:
                             REQUEST_POOL.remove(request_id)
 
-            #log.info(f"form_data.model_dump_json(exclude_none=True) > {form_data.model_dump_json(exclude_none=True)}")
 
-            #log.info(f"form_data> > > {form_data}")
+            # start
             # form_data 객체에서 딕셔너리 데이터를 가져옴
             form_dict = form_data.dict()
             last_user_content = ''
@@ -844,27 +843,9 @@ async def generate_chat_completion(
             else:
                 log.info("No user messages found")
 
-            #0410 check1
-            #client = chromadb.PersistentClient(path="../../data/uploads")    
-            # collection = client.get_or_create_collection(
-            #     name="All-Documents"
-            # )
-            #     # DB 쿼리
-            # collection.query(
-            #     query_texts=["user_messages"],
-            #     n_results=5,
-            # )
-            #0410
-            #../../data/vector_db'
-            #log.info("1")
-            #embedding_function = SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
-            #persist_directory = '/Users/kimjunhyeok/Desktop/Visual Studio Code/open-webui/open-webui/backend/data/test_vector_db'
-            #persist_directory = '/Users/kimjunhyeok/Desktop/Visual Studio Code/open-webui/open-webui/backend/data/vector_db'
-            #vectordb = Chroma(persist_directory=persist_directory, embedding_function=embedding_function)
-            #vectordb = chromadb.PersistentClient(path=persist_directory)
-
             #0413
             chromadb = CHROMA_CLIENT
+
             collections = chromadb.list_collections()
             # 최소 거리의 초기값을 무한대로 설정합니다.
             min_distance = float('inf')
@@ -883,7 +864,6 @@ async def generate_chat_completion(
                     n_results=5,
                 )
 
-                log.info(f"Results for collection {collection_name}: {result}")
                 # 결과에서 distances의 값이 가장 작은지 확인합니다.
                 if result['distances'] and result['distances'][0]:
                     if result['distances'][0][0] < min_distance:
@@ -891,19 +871,18 @@ async def generate_chat_completion(
                         min_distance = result['distances'][0][0]
                         min_result = result
                         min_collection_name = collection_name
-                    log.info(f"Results for collection {collection_name}: {result}")
     
-            log.info("######################## MIN DISTANCE ############################# \n\n\n\n\n")
-            collection_instance = chromadb.get_collection(min_collection_name)
-            result = collection_instance.query(
-                    query_texts=[last_user_content],
-                    n_results=5,
-            )
-            log.info(f"\n\n\n############  min_distance >>  {min_distance}" )
-            log.info(f"Results for collection {collection_name}: {result}")
-            log.info("######################## MIN DISTANCE ############################# \n\n\n\n\n")
+            if min_distance < 0.8 :
+                log.info("######################## MIN DISTANCE ############################# \n\n\n\n\n")
+                collection_instance = chromadb.get_collection(min_collection_name)
+                result = collection_instance.query(
+                        query_texts=[last_user_content],
+                        n_results=5,
+                )
+                log.info(f"\n\n\n############  min_distance >>  {min_distance}" )
+                log.info(f"Results for collection {collection_name}: {result}")
+                log.info("######################## MIN DISTANCE ############################# \n\n\n\n\n")
 
-            if min_distance < 0.7 :
                 extracted_documents = result['documents'][0][0]
                 new_chat_message = ChatMessage(role='assistant', content=extracted_documents, images=None)
                 log.info(extracted_documents)
@@ -912,10 +891,9 @@ async def generate_chat_completion(
                 log.info(form_data.messages)
 
 
-            
-            log.info("######################## result ################### \n\n\n\n")
-            log.info(f"\n\n{form_data.model_dump_json(exclude_none=True)}")
-            log.info("\n\n\n\n ######################## result  ###################")
+                log.info("######################## result ################### \n\n\n\n")
+                log.info(f"\n\n{form_data.model_dump_json(exclude_none=True)}")
+                log.info("\n\n\n\n ######################## result  ###################")
 
             r = requests.request(
                 method="POST",
