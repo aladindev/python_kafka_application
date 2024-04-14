@@ -4,6 +4,7 @@
 CHUNK_SIZE = 2000
 CHUNK_OVERLAP = 100 # 겹치는 청크 수  
 # TODO Chunk size 정하기 
+# overlap 사이즈 정하기
 
 from fastapi import (
     FastAPI,
