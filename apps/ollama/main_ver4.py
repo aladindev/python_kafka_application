@@ -866,9 +866,10 @@ async def generate_chat_completion(
 
                 extracted_documents = result['documents'][0][0]
                 #final_content = "Use the following context as your learned knowledge, inside <context></context> XML tags.\n<context>\n    "
-                final_content = "내부에서 배운 지식으로 다음 컨텍스트를 사용하십시오. <context></context> XML tags.\n<context>\n"
+                #final_content = "내부에서 배운 지식으로 다음 컨텍스트를 사용하십시오. <context></context> XML tags.\n<context>\n"
+                final_content = "컨텍스트 태그 내부에서 배운 지식으로 답변하십시오. <context></context> XML tags.\n<context>\n"
                 final_content += extracted_documents
-                final_content += "\n\n</context>\n\n너가 유저에게 대답할 때 :\n-반드시 한국어로 대답해라. 만약 너가 잘 모르겠으면 모르겠다고 답해라.\n- 확실하지 않을 때 유저에게 명확하게 설명을 요청하세요.\n-맥락에서 정보를 얻었음을 언급하지 마세요.\n그리고 반드시 한국어로 대답합니다.\n        \n컨텍스트 정보를 바탕으로 쿼리에 답하세요.\n쿼리: "
+                final_content += "\n\n</context>\n\n너가 유저에게 대답할 때 :\n-반드시 한국어로 대답해라. 만약 너가 잘 모르겠으면 모르겠다고 답해라.\n- 컨텍스트 내부의 정보가 확실하지 않을 때\n-컨텍스트 태그 내에서 정보를 얻었음을 언급하지 마세요.\n그리고 반드시 한국어로 대답합니다.\n        \n컨텍스트 정보를 바탕으로 쿼리에 답하세요.\n쿼리: "
                 final_content += last_user_content
 
                 new_chat_message = ChatMessage(role='user', content=final_content, images=None)
