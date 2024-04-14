@@ -806,6 +806,7 @@ async def generate_chat_completion(
 
 
             # start
+            # chroma db는 singleton 이므로 컨피그에 생성한 객체를 사용함.
             # form_data 객체에서 딕셔너리 데이터를 가져옴
             form_dict = form_data.dict()
             last_user_content = ''
