@@ -1,7 +1,8 @@
 
 #main.py.ver3
 # Context Template 
-
+CHUNK_SIZE = 2000
+CHUNK_OVERLAP = 100
 
 from fastapi import (
     FastAPI,
