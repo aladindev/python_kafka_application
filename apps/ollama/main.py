@@ -2,7 +2,7 @@
 #main.py.ver3
 # Context Template 
 CHUNK_SIZE = 2000
-CHUNK_OVERLAP = 100
+CHUNK_OVERLAP = 100 # 겹치는 청크 수  
 
 from fastapi import (
     FastAPI,
