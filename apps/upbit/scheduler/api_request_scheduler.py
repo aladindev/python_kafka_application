@@ -1,5 +1,4 @@
-# start
-import apps.upbit.routers.api_request_upbit as api_request_upbit
+import routers.api_request_upbit as api_request_upbit
 import schedule
 import time
 
