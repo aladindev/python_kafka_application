@@ -11,5 +11,6 @@ def job():
 schedule.every(10).seconds.do(job)
 
 while True:
+    print("scheduler start")
     schedule.run_pending()
     time.sleep(1)
