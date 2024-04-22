@@ -9,7 +9,7 @@ from confluent_kafka import Producer
 
 # 환경변수에서 카프카 서버 주소 가져오기
 kafka_server = os.getenv('KAFKA_SERVER_ADDRESS', 'default_server_address')
-# Kafka producer configuration
+# Kafka producer configuration 환경변수 전달 
 conf = {'bootstrap.servers': kafka_server}
 producer = Producer(**conf)
 
