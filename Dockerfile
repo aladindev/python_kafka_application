@@ -24,4 +24,5 @@ ENV PYTHONPATH "${PYTHONPATH}:/home/opc/docker/python"
 # docker run -e 인자로 넣어주면 자동으로 override함.
 ENV KAFKA_SERVER_ADDRESS=localhost:9091
 
+# 스케줄러 직접 실행으로 변경 main->api_request_scheduler.py
 CMD ["python3", "/home/opc/docker/python/apps/upbit/scheduler/api_request_scheduler.py"]
