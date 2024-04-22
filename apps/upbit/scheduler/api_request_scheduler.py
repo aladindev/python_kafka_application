@@ -1,24 +1,43 @@
 import sys
 import os
-
-# 현재 스크립트의 위치를 기준으로 모듈 경로를 설정합니다.
-current_dir = os.path.dirname(os.path.abspath(__file__))
-module_path = os.path.join(current_dir, 'apps/upbit/scheduler/routers')
-sys.path.append(module_path)
-
 import routers.api_request_upbit as api_request_upbit
 import schedule
 import time
+import json
+
+from confluent_kafka import Producer
+
+# 환경변수에서 카프카 서버 주소 가져오기
+kafka_server = os.getenv('KAFKA_SERVER_ADDRESS', 'default_server_address')
+# Kafka producer configuration
+conf = {'bootstrap.servers': kafka_server}
+producer = Producer(**conf)
+
+def delivery_report(err, msg):
+    """ 콜백 함수: 메시지 전송 결과를 보고합니다. """
+    if err is not None:
+        print('Message delivery failed:', err)
+    else:
+        print('Message delivered to', msg.topic(), msg.partition())
 
 def job():
     market_codes = ["KRW-BTC", "KRW-ETH", "KRW-XRP"]
     prices = api_request_upbit.get_upbit_prices(market_codes)
     for market_code in market_codes:
-        print(f"{market_code}의 현재 가격: {prices.get(market_code, '정보 없음')} KRW")
+        price_info = prices.get(market_code, '정보 없음')
+        print(f"{market_code}의 현재 가격: {price_info} KRW")
 
-schedule.every(10).seconds.do(job)
+        # 카프카에 메시지 전송
+        key = market_code.encode('utf-8')  # Key를 바이트로 인코딩
+        value = json.dumps({'price': price_info}).encode('utf-8')  # Value를 JSON 문자열로 변환 후 바이트로 인코딩
+        producer.produce('coin-real-time-price', key=key, value=value, callback=delivery_report)
+    
+    # 모든 메시지가 전송되었는지 확인
+    producer.flush()
+
+schedule.every(20).seconds.do(job)
 
 while True:
-    print("scheduler start")
     schedule.run_pending()
     time.sleep(1)
+
