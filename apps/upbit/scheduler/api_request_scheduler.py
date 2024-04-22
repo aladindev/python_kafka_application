@@ -1,3 +1,11 @@
+import sys
+import os
+
+# 현재 스크립트의 위치를 기준으로 모듈 경로를 설정합니다.
+current_dir = os.path.dirname(os.path.abspath(__file__))
+module_path = os.path.join(current_dir, 'apps/upbit/scheduler/routers')
+sys.path.append(module_path)
+
 import routers.api_request_upbit as api_request_upbit
 import schedule
 import time
