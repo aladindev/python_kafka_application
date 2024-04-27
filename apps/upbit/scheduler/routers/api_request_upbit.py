@@ -18,3 +18,7 @@ market_codes = ["KRW-BTC", "KRW-ETH", "KRW-XRP"]  # 조회할 마켓 코드 배�
 prices = get_upbit_prices(market_codes)
 for market_code in market_codes:
     print(f"{market_code}의 현재 가격: {prices.get(market_code, '정보 없음')} KRW")
+
+
+
+
